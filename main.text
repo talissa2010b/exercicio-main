@@ -1,0 +1,155 @@
+import 'dart:html';
+
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(NovaApp());
+}
+
+void main() {
+  runApp(const JogoAdivinhacaoApp());
+}
+
+class JogoAdivinhacaoApp extends StatelessWidget {
+  const JogoAdivinhacaoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const JogoTela(),
+    );
+  }
+}
+
+class JogoTela extends StatefulWidget {
+  const JogoTela({super.key});
+
+  @override
+  State<JogoTela> createState() => _JogoTelaState();
+}
+
+class jogoTelaState extends State{JogoTela} {
+  final TextEditiingcontroller _controlador = TextEditingController();
+  String _mensagem = 'Digite um número de 1 a 5!';
+  int _numeroSecreto = Random().nextInt(5) + 1;
+  void _verificarPalpite() {
+    final int? palpite = int.tryParse(_Controlador.Text);
+    if (palpite==null || palpite < 1 || palpite > 5) {
+      _mensagem = 'por favor , digite um número válido entre 1 e 5.';
+  }};
+   return;
+  }
+
+  void _verificarPalpite() {
+    final int? palpite = int.tryParse(_controlador.text);
+
+    if (palpite == null || palpite < 1 || palpite > 5) {
+      setState(() {
+        _mensagem = 'Por favor, digite um número válido entre 1 e 5.';
+      });
+      return;
+    }
+
+void main() {
+  runApp(const JogoAdivinhacaoApp());
+}
+
+class JogoAdivinhacaoApp extends StatelessWidget {
+  const JogoAdivinhacaoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const JogoTela(),
+    );
+  }
+}
+
+class JogoTela extends StatefulWidget {
+  const JogoTela({super.key});
+
+  @override
+  State<JogoTela> createState() => _JogoTelaState();
+}
+
+class _JogoTelaState extends State<JogoTela> {
+  final TextEditingController _controlador = TextEditingController();
+  String _mensagem = 'Digite um número de 1 a 5!';
+  int _numeroSecreto = Random().nextInt(5) + 1;
+
+  void _verificarPalpite() {
+    final int? palpite = int.tryParse(_controlador.text);
+
+    if (palpite == null || palpite < 1 || palpite > 5) {
+      setState(() {
+        _mensagem = 'Por favor, digite um número válido entre 1 e 5.';
+      });
+      return;
+    }
+
+    setState(() {
+      if (palpite == _numeroSecreto) {
+        _mensagem = 'Parabéns! Você acertou o número $_numeroSecreto!';
+      } else {
+        _mensagem = 'Errou! O número secreto era $_numeroSecreto.';
+      }
+      // Gera um novo número para reiniciar o jogo
+      _numeroSecreto = Random().nextInt(5) + 1;
+      _controlador.clear();
+    });
+  }
+
+ void main() {
+  runApp(const JogoAdivinhacaoApp());
+}
+
+class JogoAdivinhacaoApp extends StatelessWidget {
+  const JogoAdivinhacaoApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const JogoTela(),
+    );
+  }
+}
+
+class JogoTela extends StatefulWidget {
+  const JogoTela({super.key});
+
+  @override
+  State<JogoTela> createState() => _JogoTelaState();
+}
+
+class _JogoTelaState extends State<JogoTela> {
+  final TextEditingController _controlador = TextEditingController();
+  String _mensagem = 'Digite um número de 1 a 5!';
+  int _numeroSecreto = Random().nextInt(5) + 1;
+
+  void _verificarPalpite() {
+    final int? palpite = int.tryParse(_controlador.text);
+
+    if (palpite == null || palpite < 1 || palpite > 5) {
+      setState(() {
+        _mensagem = 'Por favor, digite um número válido entre 1 e 5.';
+      });
+      return;
+    }
+     set state(()) {
+    setState(() {
+      if (palpite == _numeroSecreto) {
+        _mensagem = 'Parabéns! Você acertou o número $_numeroSecreto!';
+      } else {
+        _mensagem = 'Errou! O número secreto era $_numeroSecreto.';
+      }
+      // Gera um novo número para reiniciar o jogo
+      _numeroSecreto = Random().nextInt(5) + 1;
+      _controlador.clear();
+    });
+  }
+
+ 
