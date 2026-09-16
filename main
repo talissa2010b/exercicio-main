@@ -1,0 +1,144 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: GalleryPage(),
+    );
+  }
+}
+
+class GalleryPage extends StatefulWidget {
+  const GalleryPage({super.key});
+
+  @override
+  State<GalleryPage> createState() => _GalleryPageState();
+}
+
+class _GalleryPageState extends State<GalleryPage> {
+  final List<ImageItem> images = [
+    ImageItem(
+        id: 0,
+        url:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/480px-Cat03.jpg'),
+    ImageItem(
+        id: 1,
+        url:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/480px-Cat_November_2010-1a.jpg'),
+    ImageItem(
+        id: 2,
+        url:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Orange_tabby_cat_sitting_on_fallen_leaves-1359.jpg/480px-Orange_tabby_cat_sitting_on_fallen_leaves-1359.jpg'),
+    ImageItem(
+        id: 3,
+        url:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Felis_catus-cat_on_snow.jpg/480px-Felis_catus-cat_on_snow.jpg'),
+    ImageItem(
+        id: 4,
+        url:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Panda_28.jpg/480px-Red_Panda_28.jpg'),
+  ];
+
+  int currentIndex = 0;
+
+  void _toggleLike() {
+    setState(() {
+      images[currentIndex].liked = !images[currentIndex].liked;
+    });
+  }
+
+  void _changeImage(int direction) {
+    setState(() {
+      currentIndex += direction;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final currentItem = images[currentIndex];
+    final totalLiked = images.where((img) => img.liked).length;
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFF4F4F9),
+      body: Center(
+        child: Container(
+          width: 260,
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: const [
+              BoxShadow(color: Colors.black12, blurRadius: 10),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Container da Imagem (200x200 com BoxFit.cover)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  width: 200,
+                  height: 200,
+                  color: Colors.grey[200],
+                  child: Image.network(
+                    currentItem.url,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, progress) {
+                      if (progress == null) return child;
+                      return const Center(child: CircularProgressIndicator());
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+
+              // Botão Curtir com Animação Visual
+              IconButton(
+                onPressed: _toggleLike,
+                icon: Icon(
+                  Icons.favorite,
+                  size: 32,
+                  color: currentItem.liked ? Colors.red : Colors.grey[300],
+                ),
+              ),
+
+              // Controles de Navegação
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed:
+                        currentIndex == 0 ? null : () => _changeImage(-1),
+                    child: const Text('Anterior'),
+                  ),
+                  Text('${currentIndex + 1} / ${images.length}'),
+                  ElevatedButton(
+                    onPressed: currentIndex == images.length - 1
+                        ? null
+                        : () => _changeImage(1),
+                    child: const Text('Próxima'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+
+              // Status de Curtidas
+              Text(
+                'Você gostou de $totalLiked de ${images.length} imagens',
+                style: const TextStyle(fontSize: 12, color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+''
